@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 
 function COPQ() {
-  const [internalFailureCost, setInternalFailureCost] = useState('');
-  const [externalFailureCost, setExternalFailureCost] = useState('');
-  const [appraisalCost, setAppraisalCost] = useState('');
-  const [preventionCost, setPreventionCost] = useState('');
+  const [costPerDefectUnit, setCostPerDefectUnit] = useState('');
+  const [numberOfDefects, setNumberOfDefects] = useState('');
 
-  const calculateTotalCOPQ = () => {
-    const internal = parseFloat(internalFailureCost) || 0;
-    const external = parseFloat(externalFailureCost) || 0;
-    const appraisal = parseFloat(appraisalCost) || 0;
-    const prevention = parseFloat(preventionCost) || 0;
-    return internal + external + appraisal + prevention;
+  const calculateTotalCost = () => {
+    const costPerUnit = parseFloat(costPerDefectUnit) || 0;
+    const defects = parseInt(numberOfDefects, 10) || 0;
+    return costPerUnit * defects;
   };
 
   return (
@@ -19,45 +15,25 @@ function COPQ() {
       <h2>Cost of Poor Quality (COPQ)</h2>
       <div>
         <label>
-          Internal Failure Cost:
+          Cost per Defective Unit ($):
           <input
             type="number"
-            value={internalFailureCost}
-            onChange={(e) => setInternalFailureCost(e.target.value)}
+            value={costPerDefectUnit}
+            onChange={(e) => setCostPerDefectUnit(e.target.value)}
           />
         </label>
       </div>
       <div>
         <label>
-          External Failure Cost:
+          Number of Defective Units:
           <input
             type="number"
-            value={externalFailureCost}
-            onChange={(e) => setExternalFailureCost(e.target.value)}
+            value={numberOfDefects}
+            onChange={(e) => setNumberOfDefects(e.target.value)}
           />
         </label>
       </div>
-      <div>
-        <label>
-          Appraisal Cost:
-          <input
-            type="number"
-            value={appraisalCost}
-            onChange={(e) => setAppraisalCost(e.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Prevention Cost:
-          <input
-            type="number"
-            value={preventionCost}
-            onChange={(e) => setPreventionCost(e.target.value)}
-          />
-        </label>
-      </div>
-      <h3>Total COPQ: ${calculateTotalCOPQ().toFixed(2)}</h3>
+      <h3>Total COPQ: ${calculateTotalCost().toFixed(2)}</h3>
     </div>
   );
 }
