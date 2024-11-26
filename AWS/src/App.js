@@ -1,8 +1,7 @@
-
 import React from 'react';
-import Dashboard from './components/Dashboard';
-import COPQ from './components/COPQ';
-import './App.css';
+import Dashboard from './Dashboard'; // Ensure the path points to Dashboard.js
+import COPQ from './COPQ'; // Ensure the path points to COPQ.js
+import './index.css'; // Import global styles if necessary
 
 function App() {
   return (
