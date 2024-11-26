@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function Dashboard() {
-  const [totalDefects, setTotalDefects] = useState('');
-  const [totalUnits, setTotalUnits] = useState('');
-  const [opportunitiesPerUnit, setOpportunitiesPerUnit] = useState('');
+function Dashboard({ initialTotalDefects, initialTotalUnits, initialOpportunitiesPerUnit }) {
+  const [totalDefects, setTotalDefects] = useState(initialTotalDefects);
+  const [totalUnits, setTotalUnits] = useState(initialTotalUnits);
+  const [opportunitiesPerUnit, setOpportunitiesPerUnit] = useState(initialOpportunitiesPerUnit);
   const [results, setResults] = useState(null);
 
   const calculateMetrics = () => {
-    const defects = parseInt(totalDefects, 10);
-    const units = parseInt(totalUnits, 10);
-    const opportunities = parseInt(opportunitiesPerUnit, 10);
+    const defects = parseInt(totalDefects, 10) || 0;
+    const units = parseInt(totalUnits, 10) || 0;
+    const opportunities = parseInt(opportunitiesPerUnit, 10) || 0;
     const totalOpportunities = units * opportunities;
     const dpmo = (defects / totalOpportunities) * 1_000_000;
     const sigmaLevel = 1.5 + (5.0 - Math.log10(dpmo));
@@ -67,5 +68,17 @@ function Dashboard() {
     </div>
   );
 }
+
+Dashboard.propTypes = {
+  initialTotalDefects: PropTypes.string,
+  initialTotalUnits: PropTypes.string,
+  initialOpportunitiesPerUnit: PropTypes.string,
+};
+
+Dashboard.defaultProps = {
+  initialTotalDefects: '',
+  initialTotalUnits: '',
+  initialOpportunitiesPerUnit: '',
+};
 
 export default Dashboard;
