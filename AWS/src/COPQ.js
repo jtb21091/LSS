@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function COPQ() {
-  const [costPerDefectUnit, setCostPerDefectUnit] = useState('');
-  const [numberOfDefects, setNumberOfDefects] = useState('');
+function COPQ({ initialCostPerDefectUnit, initialNumberOfDefects }) {
+  const [costPerDefectUnit, setCostPerDefectUnit] = useState(initialCostPerDefectUnit);
+  const [numberOfDefects, setNumberOfDefects] = useState(initialNumberOfDefects);
 
   const calculateTotalCost = () => {
     const costPerUnit = parseFloat(costPerDefectUnit) || 0;
@@ -37,5 +38,15 @@ function COPQ() {
     </div>
   );
 }
+
+COPQ.propTypes = {
+  initialCostPerDefectUnit: PropTypes.string,
+  initialNumberOfDefects: PropTypes.string,
+};
+
+COPQ.defaultProps = {
+  initialCostPerDefectUnit: '',
+  initialNumberOfDefects: '',
+};
 
 export default COPQ;
